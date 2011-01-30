@@ -1,0 +1,35 @@
+body {
+ background: white;
+ color: black;
+ font-family: cursive;
+ font-size: 30px;
+}
+
+div.frame {
+ margin-left: 10px;
+ position: relative;
+ width: 900px;
+ height: 600px;
+}
+
+div.chip {
+ background: lightgray;
+ position: absolute;
+ width: 800px;
+ height: 600px;
+ overflow: hidden;
+}
+
+canvas.chip {
+ position: absolute;
+ width: 800px;
+ height: 600px;
+ top: 0px;
+ left: 0px;
+}
+
+button.chip {
+ position: absolute;
+ top: 0px;
+ left: 810px;
+}
