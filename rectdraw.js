@@ -15,15 +15,15 @@ function setup(filename){
 
 function setupLayers(){
 	rectlayer = document.getElementById('rectlayer');
-	rectlayer.width = 800;
-	rectlayer.height = 600;
+	rectlayer.width = 700;
+	rectlayer.height = 550;
 	mouselayer = document.getElementById('mouselayer');
-	mouselayer.width = 800;
-	mouselayer.height = 600;
+	mouselayer.width = 700;
+	mouselayer.height = 550;
 	mouselayer.style.cursor = "crosshair";
 	hitbuffer = document.getElementById('hitbuffer');
-	hitbuffer.width = 800;
-	hitbuffer.height = 600;
+	hitbuffer.width = 700;
+	hitbuffer.height = 550;
 	hitbuffer.style.visibility = 'hidden';
 }
 
@@ -142,8 +142,15 @@ function readHitBuffer(x,y){
 }
 
 
-function localx(gx){return gx-mouselayer.getBoundingClientRect().left;}
-function localy(gy){return gy-mouselayer.getBoundingClientRect().top;}
+function localx(gx){
+	var lx = gx-mouselayer.getBoundingClientRect().left;
+	return Math.max(0, Math.min(700, Math.round(lx)));
+}
+
+function localy(gy){
+	var ly = gy-mouselayer.getBoundingClientRect().top;
+	return Math.max(0, Math.min(550, Math.round(ly)));
+}
 
 
 /////////////////////////
