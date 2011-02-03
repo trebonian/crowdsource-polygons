@@ -1,0 +1,71 @@
+We wish to crowdsource the capturing of the layout of 8-bit chips from
+the 70s and 80s, in a general way (so, 16 and 32 bit chips too.)
+
+The visualchips project at visual6502.org has a collection of old
+chips which are being depackaged, deprocessed and photographed. 
+
+To fully understand those chips we need to capture polygon data
+corresponding to the photographs.  The photographs are huge, and it
+takes a few months of hobbyist time to go over every square micron and
+trace the outlines of each shape on each layer. 
+
+This, the crowdsource-polygons project mastered at
+https://github.com/trebonian/crowdsource-polygons, aims to accelerate
+the capturing of polygons, by casting it as a simple online game and
+making it fun. 
+
+The aim is to have a single page somewhere like
+http://visual6502.org/crowdsource.html which presents a photo of a
+small patch of a chip. The player gets points and promotions according
+to progress and the accuracy of their work.  Each tile should take
+something like 5 to 15 minutes to capture. 
+
+The player will need a login so we can accumulate their scores, and
+we'll present motivating feedback including a leader board and an
+impression of overall progress on the chip.  Somehow we'll give an
+immediate score for each submission, and possibly we'll later issue a
+quality bonus when the tile is re-scored.
+
+We hope to see several tiles submitted during a single session, but
+each tile is small and self contained so there will be no way to save
+progress locally. 
+
+As a secondary goal, we might try to make this single-page polygon
+capture tool work on touchpad or handheld devices. Desktop is the
+primary platform (unless the other is really easy)
+
+Most of the complexity will be on the server side: that code will also
+be developed within this project but can only be tested with a
+suitable server setup. Probably github's gh-pages feature won't let us
+test server side computation. 
+
+We'll have a more detailed design document elsewhere.
+
+Please note the various licenses and Copyright associated with each file.
+If there's no statement of terms, the MIT License
+http://www.opensource.org/licenses/mit-license.php
+will apply.
+
+This project is associated with the visualchips project at visual6502.org
+
+/*
+ Copyright (c) 2011 Brian Silverman, Barry Silverman, Ed Spittles
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+*/
