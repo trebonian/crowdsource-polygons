@@ -5,6 +5,9 @@ var moved, drawmode='r';
 var rects = [];
 var linewidth = 8;
 
+// experimental support for r45 (diagonal) rectangles
+var uvl = 1 / Math.sqrt(2);
+
 function setup(filename){
 	frame = document.getElementById('frame');
 	setupLayers();
@@ -57,7 +60,12 @@ function mouseDown(e){
 	moved=false;	
 	mx1 = localx(e.clientX);	
 	my1 = localy(e.clientY);
-	if(drawmode=='l') snapToLine();
+	if(drawmode=='l') {
+		snapToLine();
+	} else {
+		// ctrl key at mouse-down time chooses diagonal mode
+		drawmode = (e.ctrlKey)?'r45':'r';
+	}
 	window.onmousemove = function(e){mouseMove(e)};
 	window.onmouseup = function(e){mouseUp(e)};
 }
@@ -143,6 +151,8 @@ function redrawRect(ctx, r){
 	var type=r[0]; x1=r[1], y1=r[2], x2=r[3], y2=r[4];
 	if(type=='r'){
 		fillRoundRect(ctx, x1, y1, x2, y2, 3);
+	} else if(type=='r45'){
+		fillRect45(ctx, x1, y1, x2, y2);
 	} else if(type=='l'){
 		ctx.lineCap="round";
 		ctx.lineWidth =  r[5];
@@ -152,7 +162,6 @@ function redrawRect(ctx, r){
 		ctx.stroke();		
 	}
 }
-
 
 function fillRoundRect(ctx, ix1, iy1, ix2, iy2, r){
 	var x1=Math.min(ix1, ix2), y1=Math.min(iy1,iy2);
@@ -170,6 +179,17 @@ function fillRoundRect(ctx, ix1, iy1, ix2, iy2, r){
 	ctx.fill();	
 }
 
+function fillRect45(ctx, x1, y1, x2, y2){
+	var dx=x2-x1, dy=y2-y1;
+	var dot=(dx-dy)*uvl;
+	ctx.beginPath();
+	ctx.moveTo(x1,y1);
+	ctx.lineTo(x1+dot*uvl,y1-dot*uvl);
+	ctx.lineTo(x2,y2);
+	ctx.lineTo(x2-dot*uvl,y2+dot*uvl);
+	ctx.lineTo(x1,y1);
+	ctx.fill();
+}
 
 function readHitBuffer(x,y){
 	var ctx = hitbuffer.getContext('2d');
@@ -248,5 +268,3 @@ function rectsString(){
 	for(var i in rects) res=res+rects[i].join(' ')+'\r\n';
 	return res;
 }
-
-
