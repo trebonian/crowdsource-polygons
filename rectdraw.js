@@ -48,10 +48,10 @@ function handleKey(e){
 	else if(c=='3') linewidth=12;
 	else if(c=='4') linewidth=14;
 	else if(c=='5') linewidth=16;
-	else if(c=='a') mx1--;
-	else if(c=='d') mx1++;
-	else if(c=='w') my1--;
-	else if(c=='s') my1++;
+	else if(c=='a') {mx1--; mx2--;} // we nudge both start and endpoints
+	else if(c=='d') {mx1++; mx2++;} //   to preserve any directional snapping
+	else if(c=='w') {my1--; my2--;}
+	else if(c=='s') {my1++; my2++;}
 	if(window.onmousemove) redrawMouseRect();
 }
 
@@ -85,12 +85,19 @@ function mouseMove(e){
 	var dx=Math.abs(mx2-mx1), dy=Math.abs(my2-my1);
 	// ignore small initial offsets (avoid creating tiny shapes)
 	if((!moved)&&((dx+dy)<6)) return;
-	// in line mode, snap the movement to an axis
+	// in line mode, snap the movement to one of eight directions
 	if(drawmode=='l'){
-		if(dx>dy){
-			my2=my1;
-		} else if(dy>=dx){
-			mx2=mx1;
+		if(dx>2*dy){
+			my2=my1;     // snap to horizontal
+		} else if(dy>=2*dx){
+			mx2=mx1;     // snap to vertical
+		} else {
+			// snap to a diagonal
+			var mean=Math.round((dx+dy)/2);
+			var signx=(mx2-mx1)>0?1:-1;
+			var signy=(my2-my1)>0?1:-1;
+			mx2=mx1+mean*signx;
+			my2=my1+mean*signy;
 		}
 	}
 	moved = true;
