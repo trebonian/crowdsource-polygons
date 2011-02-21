@@ -83,7 +83,16 @@ function snapToLine(){
 function mouseMove(e){
 	mx2=localx(e.clientX), my2=localy(e.clientY);
 	var dx=Math.abs(mx2-mx1), dy=Math.abs(my2-my1);
+	// ignore small initial offsets (avoid creating tiny shapes)
 	if((!moved)&&((dx+dy)<6)) return;
+	// in line mode, snap the movement to an axis
+	if(drawmode=='l'){
+		if(dx>dy){
+			my2=my1;
+		} else if(dy>=dx){
+			mx2=mx1;
+		}
+	}
 	moved = true;
 	redrawMouseRect();
 }
@@ -104,8 +113,8 @@ function mouseUp(e){
 	if(!moved) {handleClick(e);	return}
 	var ctx = mouselayer.getContext('2d');
 	ctx.clearRect(0,0,10000,10000);
-	var x = localx(e.clientX);
-	var y = localy(e.clientY);
+	var x = mx2;
+	var y = my2;
 	if(drawmode=='l'&&(Math.abs(x-mx1)<3)) x=mx1;
 	if(drawmode=='l'&&(Math.abs(y-my1)<3)) y=my1;
 	var rect = [drawmode, mx1, my1, x, y];
